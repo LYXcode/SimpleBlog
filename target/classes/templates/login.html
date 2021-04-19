@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>login</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+</head>
+<head th:replace="fragments/header :: header('Login')" />
+<body>
+    <div id="root">
+    <div th:replace="fragments/nav :: nav"></div>
+        <div class="container">
+            <div class="row">
+                <div class="twelve columns">
+                    <h4 id="loginHeader">Login</h4>
+                    <div class="six columns align-center">
+                        <label for="username">Username</label>
+                        <input v-model="username" class="u-full-width" type="text" placeholder="yourUsername" id="username"/>
+                        <label for="password">Password</label>
+                        <input v-model="password" class="u-full-width" type="password" id="password"/>
+                        <input class="u-full-width button-primary" type="submit" v-on:click="login" value="Submit" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+<div th:replace="fragments/footer" :: foot></div>
+<script>
+    var app = new Vue({
+        el: "#root",
+        data: {
+            username: '',
+            password: ''
+        },
+
+        methods: {
+            login() {
+                // var params = new URLSearchParams();
+                // params.append("username", this.username);
+                // params.append("password", this.password);
+                
+                axios({
+                    method: "post",
+                    url: "/loginAuth",
+                    headers:{"Content-type" : "application/json; charset=utf-8"},
+                    data:{
+                        "username":this.username,
+                        "password":this.password
+                    }
+                }).then(function(response){
+                    document.location.replace("/")
+                })
+            }
+        }
+    })
+</script>
+
+</html>

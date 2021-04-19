@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head th:replace="fragments/header :: header('Blog index')" />
+    <body>
+        <div th:replace="fragments/nav::nav"></div>
+        <div id="root" class="container">
+            <div class="row">
+                
+                <div class="twelve columns">
+                    <h1>My Blog</h1>
+                    <ul>
+                        <li v-for = "post in posts">
+                            <h3><a :href="detail(post)">{{post.title}}</a></h3>
+                            <h6>Created by : {{post.creatorName}}</h6>
+                            <h6>Created in : {{post.dateCreated}}</h6>
+                            
+                            <p style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis">{{post.body}}</p>
+                            <hr />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+    <div th:replace="fragments/footer :: foot"></div>
+    <script>
+        var app = new Vue({
+            el:"#root",
+            data: {posts:[]},
+            mounted(){
+                this.fetvhPosts();
+            },
+            methods:{
+                fetvhPosts(){
+                    axios.get("/allposts").then(function(response){
+                        this.posts = response.data;
+                    }.bind(this));
+                },
+          
+            detail(post){
+                    return "/the_post/" + post.id;
+                    }
+                }
+            }
+        )
+    </script>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>login</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+</head>
+<head th:replace="fragments/header :: header('To Post')" />
+<body>
+    <div id="root">
+    <div th:replace="fragments/nav :: nav"></div>
+        <div class="container">
+            <div class="row">
+                <div class="twelve columns">
+                    <div class="six columns align-center">
+                        <label for="title">Title</label>
+                        <input v-model="title" class="u-full-width" type="text" placeholder="yourPostTitle" id="title"/>
+                        <label for="body">Content</label>
+                        <textarea v-model="body" class="u-full-width" rows="66" type="text" placeholder="yourPostContent" id="body"> </textarea>
+                        <input class="u-full-width button-primary" type="submit" v-on:click="post" value="Submit" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+<div th:replace="fragments/footer" :: foot></div>
+<script>
+    var app = new Vue({
+        el: "#root",
+        data: {
+            title: '',
+            body: ''
+        },
+
+        methods: {
+            post() {
+                // var params = new URLSearchParams();
+                // params.append("username", this.username);
+                // params.append("password", this.password);
+                
+                axios({
+                    method: "post",
+                    url: "/post",
+                    headers:{"Content-type" : "application/json; charset=utf-8"},
+                    data:{
+                        "title":this.title,
+                        "body":this.body
+                    }
+                }).then(function(response){
+                    document.location.replace("/")
+                })
+            }
+        }
+    })
+</script>
+
+</html>

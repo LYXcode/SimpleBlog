@@ -1,0 +1,13 @@
+simpleblog\entities\Role.class
+simpleblog\entities\User.class
+simpleblog\entities\Permission.class
+simpleblog\security\ShiroConfig.class
+simpleblog\services\UserService.class
+simpleblog\services\PostService.class
+simpleblog\controllers\BlogController.class
+simpleblog\repositories\UserRepository.class
+simpleblog\security\CustomRealm.class
+simpleblog\entities\Post.class
+simpleblog\repositories\PostRepository.class
+simpleblog\controllers\UserController.class
+simpleblog\App.class
